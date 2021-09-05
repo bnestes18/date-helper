@@ -26,17 +26,10 @@ function getFutureDate (options = {}) {
 
     if (!times[units]) { throw new Error(`${times[units]} is not a valid unit of time.`) };
 
-
-    console.log('specified timestamp ->', timestamp);
-
-    let date = new Date(timestamp);
-    console.log('provided timestamp conversion ->', date);
-
     let newTimestamp = timestamp + (times[units] * num);
     let newDate = new Date(newTimestamp);
-    console.log(num + ' ' + units + ' ' +'from specified date ->', newDate);
 
-    console.log('formatted date string ->', newDate.toLocaleString(navigator.language, format));
+    return newDate.toLocaleString(navigator.language, format);
 }
 
 getFutureDate({num: 2, units: 'years'});
