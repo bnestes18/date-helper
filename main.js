@@ -9,7 +9,10 @@ let Stamp = (function() {
     }
 
     function Constructor(date) {
-        this.timestamp = date ? new Date(date).getTime() : new Date().getTime();
+
+        Object.defineProperties(this, {
+            timestamp: {value: date ? new Date(date).getTime() : new Date().getTime()}
+        })
     }
 
     /**
