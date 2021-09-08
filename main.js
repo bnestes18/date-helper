@@ -1,4 +1,4 @@
-let stamp = (function() {
+let Stamp = (function() {
 
     let times = {
         hours: 1000 * 60 * 60,
@@ -8,66 +8,73 @@ let stamp = (function() {
         years: 1000 * 60 * 60 * 24 * 365
     }
 
+    function Constructor(date) {
+        this.timestamp = date ? new Date(date).getTime() : new Date().getTime();
+    }
+
     /**
     * Add n number of hours to the given timestamp
     * @return {Number} A unix timestamp for hours
     */
-    function addHours(timestamp, num = 1) {
-        return timestamp + (times.hours * num);
+    Constructor.prototype.addHours = function (num = 1) {
+        return this.timestamp + (times.hours * num);
     }
 
     /**
     * Add n number of days to the given timestamp
     * @return {Number} A unix timestamp for days
     */
-    function addDays(timestamp, num = 1) {
-        return timestamp + (times.days * num);
+    Constructor.prototype.addDays = function (num = 1) {
+        return this.timestamp + (times.days * num);
     }
 
     /**
     * Add n number of weeks to the given timestamp
     * @return {Number} A unix timestamp for weeks
     */
-    function addWeeks(timestamp, num = 1) {
-        return timestamp + (times.weeks * num);
+    Constructor.prototype.addWeeks = function (num = 1) {
+        return this.timestamp + (times.weeks * num);
     }
 
     /**
     * Add n number of months to the given timestamp
     * @return {Number} A unix timestamp for months
     */
-    function addMonths(timestamp, num = 1) {
-        let months = times['months'];
-        return timestamp + (times.months * num);
+    Constructor.prototype.addMonths = function (num = 1) {
+        return this.timestamp + (times.months * num);
     }
 
     /**
     * Add n number of years to the given timestamp
     * @return {Number} A unix timestamp for years
     */
-    function addYears(timestamp, num = 1) {
-        return timestamp + (times.years * num);
+    Constructor.prototype.addYears = function (num = 1) {
+        return this.timestamp + (times.years * num);
     }
 
     /**
     * Get a date in the future (or past) from a timestamp
     * @return {String} A formatted date string
     */
-    function getDate(timestamp, options = {}) {
+    Constructor.prototype.getDate = function (options = {}) {
         let format = Object.assign({
             dateStyle: 'long', 
             timeStyle: 'short', 
             hour12: true
         }, options)
 
-        return new Date(timestamp).toLocaleString(navigator.language, format);
+        return new Date(this.timestamp).toLocaleString(navigator.language, format);
     }
 
     // Export functions
-    return {addHours, addDays, addWeeks, addMonths, addYears, getDate}
+    // return {addHours, addDays, addWeeks, addMonths, addYears, getDate}
+    return Constructor;
 
 })();
 
-let now = new Date().getTime();
-let twoWeeksFromNow = stamp.addWeeks(now, 2);
-console.log(stamp.getDate(twoWeeksFromNow, {dateStyle: 'short'}));
+
+let now = new Stamp();
+console.log('now', now);
+let threeDaysFromNow = now.addDays(3)
+now.addDays(threeDaysFromNow);
+console.log('3 days from now', new Stamp(threeDaysFromNow).getDate())
