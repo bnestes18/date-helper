@@ -17,7 +17,7 @@ let Stamp = (function() {
     * @return {Number} A unix timestamp for hours
     */
     Constructor.prototype.addHours = function (num = 1) {
-        return this.timestamp + (times.hours * num);
+        return new Constructor(this.timestamp + (times.hours * num));
     }
 
     /**
@@ -25,7 +25,7 @@ let Stamp = (function() {
     * @return {Number} A unix timestamp for days
     */
     Constructor.prototype.addDays = function (num = 1) {
-        return this.timestamp + (times.days * num);
+        return new Constructor(this.timestamp + (times.days * num));
     }
 
     /**
@@ -33,7 +33,7 @@ let Stamp = (function() {
     * @return {Number} A unix timestamp for weeks
     */
     Constructor.prototype.addWeeks = function (num = 1) {
-        return this.timestamp + (times.weeks * num);
+        return new Constructor(this.timestamp + (times.weeks * num));
     }
 
     /**
@@ -41,7 +41,7 @@ let Stamp = (function() {
     * @return {Number} A unix timestamp for months
     */
     Constructor.prototype.addMonths = function (num = 1) {
-        return this.timestamp + (times.months * num);
+        return new Constructor(this.timestamp + (times.months * num));
     }
 
     /**
@@ -49,7 +49,7 @@ let Stamp = (function() {
     * @return {Number} A unix timestamp for years
     */
     Constructor.prototype.addYears = function (num = 1) {
-        return this.timestamp + (times.years * num);
+        return new Constructor(this.timestamp + (times.years * num));
     }
 
     /**
@@ -64,6 +64,7 @@ let Stamp = (function() {
         }, options)
 
         return new Date(this.timestamp).toLocaleString(navigator.language, format);
+
     }
 
     // Export functions
@@ -75,6 +76,6 @@ let Stamp = (function() {
 
 let now = new Stamp();
 console.log('now', now);
-let threeDaysFromNow = now.addDays(3)
-now.addDays(threeDaysFromNow);
-console.log('3 days from now', new Stamp(threeDaysFromNow).getDate())
+now.timestamp = 1631066800001;
+console.log(now.timestamp)
+
